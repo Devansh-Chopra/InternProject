@@ -24,7 +24,7 @@ public class GetIntern {
         if(intern.isEmpty()){
             throw new InternNotFoundException(internId);
         }
-        model.put("intern",intern);
+        model.put("intern",intern.get());
         return "getIntern";
 
     }
