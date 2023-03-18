@@ -25,7 +25,7 @@ public class AddMentor{
         return "addMentor";
     }
     @PostMapping(path="/addMentor",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void addIntern(@Valid @RequestParam Map<String,String> requestBody){
+    public void addIntern( @RequestParam Map<String,String> requestBody){
 
         System.out.println("addMentor Post Request");
         System.out.println(requestBody);

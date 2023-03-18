@@ -25,7 +25,6 @@ public class AddCourse {
     }
 
     @PostMapping(path="/addCourse",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public ResponseEntity<Course> addCourse(@RequestParam Map<String,String> requestBody){
         System.out.println("addCourse Post Request");
         Course newCourse=new Course(requestBody.get("name"));
@@ -33,6 +32,8 @@ public class AddCourse {
         return new ResponseEntity<>(newCourse,HttpStatus.CREATED);
     }
 
+
+    @ResponseBody
     @PostMapping(path="/api/addCourse",consumes = MediaType.APPLICATION_JSON_VALUE)
 //    consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
     public ResponseEntity<Course> addCourseApi(@Valid @RequestBody Course course){

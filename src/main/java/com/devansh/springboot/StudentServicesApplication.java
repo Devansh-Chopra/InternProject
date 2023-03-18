@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
-@ComponentScan("com.devansh.repository;com.devansh.springboot;")
+@ComponentScan(basePackages = {"com.devansh.repository","com.devansh.springboot"})
 public class StudentServicesApplication implements CommandLineRunner {
 
 	Logger logger = LoggerFactory.getLogger(StudentServicesApplication.class);
