@@ -4,6 +4,7 @@ import com.devansh.springboot.SpringDataRepository.InternSpringDataRepository;
 import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
 import com.devansh.springboot.model.Intern;
 import com.devansh.springboot.model.Mentor;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class AddMentor{
         return "addMentor";
     }
     @PostMapping(path="/addMentor",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void addIntern(@RequestParam Map<String,String> requestBody){
+    public void addIntern(@Valid @RequestParam Map<String,String> requestBody){
 
         System.out.println("addMentor Post Request");
         System.out.println(requestBody);

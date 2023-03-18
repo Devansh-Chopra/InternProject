@@ -1,6 +1,8 @@
 package com.devansh.springboot.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Array;
@@ -14,6 +16,8 @@ public class Mentor {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+
+	@NotBlank(message = "Mentor's name cannot be blank")
 	private String name;
 
 	@Autowired

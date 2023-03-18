@@ -1,6 +1,8 @@
 package com.devansh.springboot.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@NotBlank(message = "Course's name cannot be blank")
 	private String name;
 
 	@ManyToMany(mappedBy = "assignedCourses",cascade = CascadeType.ALL)

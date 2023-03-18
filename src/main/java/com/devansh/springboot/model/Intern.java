@@ -2,6 +2,8 @@ package com.devansh.springboot.model;
 
 import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -14,7 +16,12 @@ public class Intern {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+
+//    @Size(min = 1,message = "Intern's First Name should have atleast 1 character")
+    @NotBlank(message = "Intern's first name cannot be null")
     private String firstName;
+//    @Size(min = 1,message = "Intern's Last Name should have atleast 1 character")
+    @NotBlank(message = "Intern's last name cannot be null")
     private String lastName;
     private String college;
     @ManyToOne
