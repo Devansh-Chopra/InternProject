@@ -5,12 +5,13 @@ import com.devansh.springboot.SpringDataRepository.InternSpringDataRepository;
 import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
 import com.devansh.springboot.model.Course;
 import com.devansh.springboot.model.Intern;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 @Controller
@@ -22,12 +23,23 @@ public class AddCourse {
     public String getCourses(){
         return "addCourse";
     }
-    @PostMapping(path="/addCourse",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void addCourse(@RequestParam Map<String,String> requestBody){
-        System.out.println("addCourse Post Request");
-        System.out.println(requestBody);
 
+    @PostMapping(path="/addCourse",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Course> addCourse(@RequestParam Map<String,String> requestBody){
+        System.out.println("addCourse Post Request");
         Course newCourse=new Course(requestBody.get("name"));
         courseRepository.save(newCourse);
+        return new ResponseEntity<>(newCourse,HttpStatus.CREATED);
+    }
+
+    @PostMapping(path="/api/addCourse",consumes = MediaType.APPLICATION_JSON_VALUE)
+//    consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+    public ResponseEntity<Course> addCourseApi(@Valid @RequestBody Course course){
+        System.out.println("addCourse Post Request");
+        System.out.println(course);
+        Course newCourse=new Course(course.getName());
+        courseRepository.save(newCourse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(course);
     }
 }
