@@ -1,5 +1,7 @@
 package com.devansh.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,6 +22,7 @@ public class Mentor {
 	@NotBlank(message = "Mentor's name cannot be blank")
 	private String name;
 
+	@JsonIgnore
 	@Autowired
 	@OneToMany(mappedBy = "mentor",cascade = CascadeType.ALL)
 	public List<Intern> internsAssociated=new ArrayList<>();
@@ -29,6 +32,10 @@ public class Mentor {
 
 	}
 
+	@JsonProperty("associatedInterns")
+	public List<String> getAssociatedInternsNames(){
+		return this.getInternsAssociated().stream().map(intern -> intern.getFirstName()).toList();
+	}
 	@Override
 	public String toString() {
 		return name;

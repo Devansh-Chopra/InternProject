@@ -1,6 +1,8 @@
 package com.devansh.springboot.model;
 
 import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,6 +26,8 @@ public class Intern {
     @NotBlank(message = "Intern's last name cannot be null")
     private String lastName;
     private String college;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="mentor_id")
     private Mentor mentor;
@@ -107,6 +111,10 @@ public class Intern {
     }
 
 
+    @JsonProperty("mentor")
+    public String getMentorName(){
+        return mentor.getName();
+    }
     public Mentor getMentor() {
         return mentor;
     }
