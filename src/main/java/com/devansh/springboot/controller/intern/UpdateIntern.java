@@ -6,14 +6,14 @@ import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
 import com.devansh.springboot.model.Course;
 import com.devansh.springboot.model.Intern;
 import com.devansh.springboot.model.Mentor;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
@@ -68,4 +68,20 @@ public class UpdateIntern {
 
         return new RedirectView("/getIntern/"+internId);
     }
+
+    @ResponseBody
+    @PutMapping(path="/api/updateIntern",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Intern> updateInternApi(@Valid @RequestBody Intern intern){
+        Intern updatedIntern=new Intern.InternBuilder()
+                .setId(intern.getId())
+                .setFirstName(intern.getFirstName())
+                .setLastName(intern.getLastName())
+                .setCollege(intern.getCollege())
+                .setMentor(intern.getMentor())
+                .setAssignedCourses(intern.getAssignedCourses())
+                .build();
+        internRepository.save(updatedIntern);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedIntern);
+    }
+
 }

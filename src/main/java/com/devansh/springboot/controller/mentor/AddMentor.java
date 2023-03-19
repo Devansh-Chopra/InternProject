@@ -6,11 +6,11 @@ import com.devansh.springboot.model.Intern;
 import com.devansh.springboot.model.Mentor;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -21,11 +21,11 @@ public class AddMentor{
     MentorSpringDataRepository mentorRepository;
 
     @GetMapping(path="/addMentor")
-    public String getInterns(){
+    public String addMentor(){
         return "addMentor";
     }
     @PostMapping(path="/addMentor",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void addIntern( @RequestParam Map<String,String> requestBody){
+    public void addMentor( @RequestParam Map<String,String> requestBody){
 
         System.out.println("addMentor Post Request");
         System.out.println(requestBody);
@@ -33,5 +33,15 @@ public class AddMentor{
         Mentor newMentor=new Mentor(requestBody.get("name"));
         mentorRepository.save(newMentor);
 //        return "addIntern";
+    }
+
+    @ResponseBody
+    @PostMapping(path = "/api/addMentor")
+    public ResponseEntity AddMentorApi(@Valid @RequestBody Mentor mentor){
+
+        Mentor newMentor=new Mentor(mentor.getName());
+        mentorRepository.save(newMentor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newMentor);
+
     }
 }

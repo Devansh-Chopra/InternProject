@@ -38,7 +38,6 @@ public class AddCourse {
 //    consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
     public ResponseEntity<Course> addCourseApi(@Valid @RequestBody Course course){
         System.out.println("addCourse Post Request");
-        System.out.println(course);
         Course newCourse=new Course(course.getName());
         courseRepository.save(newCourse);
         return ResponseEntity.status(HttpStatus.CREATED).body(course);

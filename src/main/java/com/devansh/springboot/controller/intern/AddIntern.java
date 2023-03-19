@@ -7,15 +7,16 @@ import com.devansh.springboot.SpringDataRepository.CourseSpringDataRepository;
 import com.devansh.springboot.SpringDataRepository.InternSpringDataRepository;
 import com.devansh.springboot.SpringDataRepository.MentorSpringDataRepository;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 
@@ -36,7 +37,7 @@ public class AddIntern {
     CourseSpringDataRepository courseRepository;
 
     @GetMapping(path="/addIntern")
-    public String getInterns(ModelMap model){
+    public String addIntern(ModelMap model){
         List<Course> courseList=courseRepository.findAll();
         model.put("courseList",courseList);
         List<Mentor> mentorList=mentorRepository.findAll();
@@ -64,5 +65,19 @@ public class AddIntern {
         }
         internRepository.save(newIntern);
         return new RedirectView("/");
+    }
+
+    @ResponseBody
+    @PostMapping(path="/api/addIntern",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Intern> addCourseApi(@Valid @RequestBody Intern intern){
+        Intern newIntern=new Intern.InternBuilder()
+                .setFirstName(intern.getFirstName())
+                .setLastName(intern.getLastName())
+                .setCollege(intern.getCollege())
+                .setMentor(intern.getMentor())
+                .setAssignedCourses(intern.getAssignedCourses())
+                .build();
+        internRepository.save(newIntern);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newIntern);
     }
 }
