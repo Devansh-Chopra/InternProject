@@ -31,16 +31,5 @@ public class DeleteIntern {
             return new RedirectView("/");
         }
 
-        @ResponseBody
-        @DeleteMapping(path = "/api/deleteIntern/{id}")
-        public ResponseEntity<Intern> deleteInternApi(@PathVariable("id") int internId){
-            System.out.println("deleteInternApi Delete Request");
-            Optional<Intern> deletedIntern = internRepository.findById(internId);
-            if(deletedIntern.isEmpty()){
-                throw new InternNotFoundException(internId);
-            }
-            internRepository.deleteById(internId);
-            return ResponseEntity.status(HttpStatus.OK).body(deletedIntern.get());
-        }
 
     }

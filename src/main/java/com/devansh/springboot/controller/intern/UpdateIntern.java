@@ -69,19 +69,6 @@ public class UpdateIntern {
         return new RedirectView("/getIntern/"+internId);
     }
 
-    @ResponseBody
-    @PutMapping(path="/api/updateIntern",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Intern> updateInternApi(@Valid @RequestBody Intern intern){
-        Intern updatedIntern=new Intern.InternBuilder()
-                .setId(intern.getId())
-                .setFirstName(intern.getFirstName())
-                .setLastName(intern.getLastName())
-                .setCollege(intern.getCollege())
-                .setMentor(intern.getMentor())
-                .setAssignedCourses(intern.getAssignedCourses())
-                .build();
-        internRepository.save(updatedIntern);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedIntern);
-    }
+
 
 }

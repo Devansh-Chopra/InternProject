@@ -27,7 +27,6 @@ public class Intern {
     private String lastName;
     private String college;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="mentor_id")
     private Mentor mentor;
@@ -111,10 +110,12 @@ public class Intern {
     }
 
 
-    @JsonProperty("mentor")
-    public String getMentorName(){
-        return mentor.getName();
-    }
+//    @JsonProperty("mentor")
+//    public String getMentorName(){
+//        if(mentor!=null)
+//        return mentor.getName();
+//        return null;
+//    }
     public Mentor getMentor() {
         return mentor;
     }

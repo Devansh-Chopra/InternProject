@@ -6,6 +6,8 @@ import com.devansh.springboot.model.Intern;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Controller
 public class GetIntern {
@@ -35,16 +40,7 @@ public class GetIntern {
     }
 
 
-    @ResponseBody
-    @GetMapping(path="/api/getIntern/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Intern> getInternApi(@Valid @PathVariable("id")int internId){
-        Optional<Intern> intern=internRepository.findById(internId);
-        if(intern.isEmpty()){
-            throw new InternNotFoundException(internId);
-        }
 
-        return ResponseEntity.status(HttpStatus.OK).body(intern.get());
-    }
 
 
 }

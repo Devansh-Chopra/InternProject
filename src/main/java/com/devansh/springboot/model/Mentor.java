@@ -32,10 +32,10 @@ public class Mentor {
 
 	}
 
-	@JsonProperty("associatedInterns")
-	public List<String> getAssociatedInternsNames(){
-		return this.getInternsAssociated().stream().map(intern -> intern.getFirstName()).toList();
-	}
+//	@JsonProperty("associatedInterns")
+//	public List<String> getAssociatedInternsNames(){
+//		return this.getInternsAssociated().stream().map(intern -> intern.getFirstName()).toList();
+//	}
 	@Override
 	public String toString() {
 		return name;

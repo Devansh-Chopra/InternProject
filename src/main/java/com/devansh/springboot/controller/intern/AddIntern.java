@@ -37,7 +37,7 @@ public class AddIntern {
     CourseSpringDataRepository courseRepository;
 
     @GetMapping(path="/addIntern")
-    public String addIntern(ModelMap model){
+    public String getIntern(ModelMap model){
         List<Course> courseList=courseRepository.findAll();
         model.put("courseList",courseList);
         List<Mentor> mentorList=mentorRepository.findAll();
@@ -67,17 +67,5 @@ public class AddIntern {
         return new RedirectView("/");
     }
 
-    @ResponseBody
-    @PostMapping(path="/api/addIntern",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Intern> addCourseApi(@Valid @RequestBody Intern intern){
-        Intern newIntern=new Intern.InternBuilder()
-                .setFirstName(intern.getFirstName())
-                .setLastName(intern.getLastName())
-                .setCollege(intern.getCollege())
-                .setMentor(intern.getMentor())
-                .setAssignedCourses(intern.getAssignedCourses())
-                .build();
-        internRepository.save(newIntern);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newIntern);
-    }
+
 }

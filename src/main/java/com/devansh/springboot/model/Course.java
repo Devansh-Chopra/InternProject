@@ -24,10 +24,10 @@ public class Course {
 	@ManyToMany(mappedBy = "assignedCourses",cascade = CascadeType.ALL)
 	List<Intern> internsAssociated=new ArrayList<>();
 
-	@JsonProperty("internsAssociated")
-	List<String> getInternsAssociatedNames(){
-		return this.internsAssociated.stream().map(intern -> intern.getFirstName()).toList();
-	}
+//	@JsonProperty("internsAssociated")
+//	List<String> getInternsAssociatedNames(){
+//		return this.internsAssociated.stream().map(intern -> intern.getFirstName()).toList();
+//	}
 
 	@Override
 	public String toString() {
