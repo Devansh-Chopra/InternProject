@@ -11,6 +11,7 @@
 	</head>
 
 	<body>
+
 <div class="container">
         <h1 class="text-center">${name}</h1>
 
@@ -22,6 +23,7 @@
         </li>
         </c:forEach>
         </ul>
-</div>
+</div
+
 	</body>
 </html>

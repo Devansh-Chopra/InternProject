@@ -11,6 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +41,6 @@ public class StudentServicesApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		//add mentors{
-//		Mentor mentor1=mentorRepository.save(new Mentor("Ankur"));
-//		mentorRepository.save(new Mentor("Mitul"));
-		//}
-		//add Interns{
-//		Intern intern1 = internRepository.save(new Intern("Devansh", "Chopra", "ADGITM", mentorRepository.findById(1).get()));
-//		internRepository.save(new Intern("Paridhi","Sharma","ADGITM",mentorRepository.findById(1).get()));
-		//}
 
-//		System.out.println(intern1.getMentor());
-//		Mentor mentor1=mentorRepository.findById(1).get();
-//		System.out.println(mentor1);
-//		List<Intern> AL=mentor1.internsAssociated;
-//		logger.info(AL.toString());
-//		System.out.println(AL.size());
 	}
 }

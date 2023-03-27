@@ -6,9 +6,9 @@ import com.devansh.springboot.model.Intern;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -59,12 +59,40 @@ public class InternApi {
 
     @GetMapping
     public ResponseEntity<Intern> getInternApi(@RequestParam("id")int internId){
+        System.out.println("GET /api/intern?id="+internId);
         Optional<Intern> intern=internRepository.findById(internId);
         if(intern.isEmpty()){
             throw new InternNotFoundException(internId);
         }
         return ResponseEntity.status(HttpStatus.OK).body(intern.get());
     }
+
+    @Autowired
+    Patcher patcher;
+
+    @PatchMapping
+    public ResponseEntity<Intern> patchInternApi( @RequestBody Intern updatedIntern){
+        Intern existingIntern=internRepository.findById(updatedIntern.getId())
+                .orElseThrow(()->new InternNotFoundException(updatedIntern.getId()));
+        try {
+            patcher.internPatcher(existingIntern, updatedIntern);
+            internRepository.save(existingIntern);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(existingIntern);
+    }
+
+
+//monoflux
+    @GetMapping(path = "/restTemplate")
+    public ResponseEntity<Intern> rest(){
+        ResponseEntity<Intern> responseEntity=new RestTemplate()
+                .getForEntity("http://localhost:8080/api/intern?id=105",Intern.class);
+        Intern intern=responseEntity.getBody();
+        return ResponseEntity.status(HttpStatus.OK).body(intern);
+    }
+
 
 
 }
